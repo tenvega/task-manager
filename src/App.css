@@ -74,3 +74,42 @@ li button {
 li button:hover {
   background-color: #da190b;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+  opacity: 0.6;
+}
+
+li input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+li span {
+  flex: 1;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  padding: 8px 16px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-buttons button:hover {
+  background-color: #d0d0d0;
+}
+
+.filter-buttons button.active {
+  background-color: #555;
+  color: white;
+}
