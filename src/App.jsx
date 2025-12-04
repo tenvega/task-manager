@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import TaskItem from './TaskItem'
+import TaskInput from './TaskInput'
 
 function App() {       
   const [tasks, setTasks] = useState ([
@@ -39,13 +40,12 @@ function App() {
      <div className="app-container">                      
       <h1>Task Manager</h1>
       <div className="input-container">
-        <input 
+        <TaskInput 
           type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder='Enter a new task' 
+          newTask={newTask}
+          setNewTask={setNewTask}
+          addTask={addTask} 
         />
-        <button onClick={addTask}>Add Task</button>
       </div>
       <div className="filter-buttons">
         <button
