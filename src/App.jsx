@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import TaskItem from './TaskItem'
 
 function App() {       
   const [tasks, setTasks] = useState ([
@@ -62,17 +63,13 @@ function App() {
       </div>
       <ul>
         {filteredTasks.map((task, index) => (
-          <li key={index}>
-            <input 
-            type="checkbox"
-            checked={task.completed}
-            onChange= { () => toggleComplete(index)} 
-            />
-            <span className={task.completed ? 'completed' : ''}>
-              {task.text}
-              </span>
-            <button onClick={() => deleteTask(index)}>Delete</button>
-          </li>
+          <TaskItem
+            key={index}
+            task={task}
+            index={index}
+            toogleComplete={toggleComplete}
+            deleteTask={deleteTask}
+          />
         ))}
       </ul>
     </div>
