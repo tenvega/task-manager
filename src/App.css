@@ -17,6 +17,7 @@
   margin: 50px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .input-container {
@@ -31,6 +32,12 @@
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: #4CAF50;
 }
 
 .input-container button {
@@ -41,10 +48,18 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
-.input-container button:hover {
+.input-container button:hover:not(:disabled) {
   background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+.input-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 ul {
@@ -60,6 +75,13 @@ li {
   margin-bottom: 8px;
   background-color: #f9f9f9;
   border-radius: 4px;
+  animation: slideIn 0.3s ease-out;
+  transition: all 0.2s;
+}
+
+li:hover {
+  background-color: #f0f0f0;
+  transform: translateX(5px);
 }
 
 li button {
@@ -69,25 +91,36 @@ li button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 li button:hover {
   background-color: #da190b;
+  transform: scale(1.05);
 }
 
 .completed {
   text-decoration: line-through;
   color: #888;
   opacity: 0.6;
+  transition: all 0.3s;
 }
 
 li input[type="checkbox"] {
   margin-right: 10px;
   cursor: pointer;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+li input[type="checkbox"]:hover {
+  transform: scale(1.2);
 }
 
 li span {
   flex: 1;
+  transition: all 0.3s;
 }
 
 .filter-buttons {
@@ -96,20 +129,22 @@ li span {
   margin-bottom: 20px;
 }
 
-.filter-buttons button {
+.filter-buttons button:not(.clear-completed) {
   padding: 8px 16px;
   background-color: #e0e0e0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.2s;
 }
 
-.filter-buttons button:hover {
+.filter-buttons button:not(.clear-completed):hover {
   background-color: #d0d0d0;
+  transform: translateY(-2px);
 }
 
-.filter-buttons button.active {
+.filter-buttons button:not(.clear-completed).active {
   background-color: #555;
   color: white;
 }
@@ -119,6 +154,7 @@ li span {
   font-size: 14px;
   margin-top: -10px;
   margin-bottom: 20px;
+  animation: fadeIn 0.4s ease-in;
 }
 
 .clear-completed {
@@ -129,9 +165,58 @@ li span {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  margin-bottom: 15px;
+  animation: fadeInSlide 0.3s ease-in;
+  transition: all 0.2s;
 }
 
 .clear-completed:hover {
   background-color: #ff5252;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
 }

@@ -18,13 +18,25 @@ function App() {
   }, [tasks])
 
   const addTask = () => {
-    setTasks([...tasks, {text: newTask, completed: false}])  
-    setNewTask('')
+    if (newTask.trim() === '') return
+    setTasks([...tasks, { text: newTask, completed: false }])
+    setNewTask ('')
   }    
 
-  const deleteTask = (indexToDelete) => { 
-    setTasks (tasks.filter((task, index) => index !== indexToDelete)) 
+  const deleteTask = (indexToDelete) => {
+  // Add fade-out class
+  const taskElement = document.querySelectorAll('li')[indexToDelete]
+  if (taskElement) {
+    taskElement.style.animation = 'fadeOut 0.3s ease-out'
+    // Wait for animation to finish before removing
+    setTimeout(() => {
+      setTasks(tasks.filter((task, index) => index !== indexToDelete))
+    }, 300)
+  } else {
+    setTasks(tasks.filter((task, index) => index !== indexToDelete))
   }
+}
+
 
   const toggleComplete = (indexToToggle) => {
     setTasks (tasks.map((task, index) => 
@@ -35,8 +47,24 @@ function App() {
   }
 
   const clearCompleted = () => {
-    setTasks (tasks.filter((task) => !task.completed))
-  }
+  // Get all completed tasks and animate them out
+  const allTaskElements = document.querySelectorAll('li')
+  const completedIndices = []
+  
+  tasks.forEach((task, index) => {
+    if (task.completed) {
+      completedIndices.push(index)
+      if (allTaskElements[index]) {
+        allTaskElements[index].style.animation = 'fadeOut 0.3s ease-out'
+      }
+    }
+  })
+  
+  // Wait for animation to finish before removing
+  setTimeout(() => {
+    setTasks(tasks.filter((task) => !task.completed))
+  }, 300)
+}
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'active') return !task.completed
@@ -75,10 +103,10 @@ function App() {
         className={filter === 'completed' ? 'active' : ''}
         onClick={() => setFilter('completed')}
         >Completed</button>
-      </div>
-      <button className='clear-completed' onClick={clearCompleted}>
-        Clear Completed Tasks
-      </button>
+        {tasks.some(t => t.completed) && (<button  className='clear-completed' onClick={clearCompleted}
+       >Clear Completed Tasks
+       </button>)}
+      </div>      
       <ul>
         {filteredTasks.map((task, index) => (
           <TaskItem
