@@ -34,6 +34,10 @@ function App() {
     ))
   }
 
+  const clearCompleted = () => {
+    setTasks (tasks.filter((task) => !task.completed))
+  }
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'active') return !task.completed
     if (filter === 'completed') return task.completed
@@ -72,6 +76,9 @@ function App() {
         onClick={() => setFilter('completed')}
         >Completed</button>
       </div>
+      <button className='clear-completed' onClick={clearCompleted}>
+        Clear Completed Tasks
+      </button>
       <ul>
         {filteredTasks.map((task, index) => (
           <TaskItem
