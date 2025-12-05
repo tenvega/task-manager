@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TaskItem from './TaskItem'
 import TaskInput from './TaskInput'
 
 function App() {       
-  const [tasks, setTasks] = useState ([
-    {text:'learn react', completed: false},
-    {text: 'build a project', completed: false},
-    {text: 'master components', completed: false }, 
-    {text: 'deploy app', completed: false}
-  ])   
+  console.log('Component rendered') 
+  const [tasks, setTasks] = useState(() => {
+  const savedTasks = localStorage.getItem('tasks')
+  return savedTasks ? JSON.parse(savedTasks) : []
+})
+
   const [newTask, setNewTask] = useState ('') 
   const [filter, setFilter] = useState ('all')  
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const addTask = () => {
     setTasks([...tasks, {text: newTask, completed: false}])  
