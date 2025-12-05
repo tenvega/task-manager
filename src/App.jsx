@@ -43,6 +43,13 @@ function App() {
     return (                      
      <div className="app-container">                      
       <h1>Task Manager</h1>
+       <p className='task-stats'>
+          {tasks.length === 0 
+          ? 'No tasks yet. Add one above!' 
+          : `${tasks.filter(t => !t.completed).length} active, ${tasks. filter(t => t.completed).length} completed`
+         }
+       </p>
+
       <div className="input-container">
         <TaskInput 
           type="text"

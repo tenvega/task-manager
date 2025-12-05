@@ -113,3 +113,10 @@ li span {
   background-color: #555;
   color: white;
 }
+
+.task-stats {
+  color: #666;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
