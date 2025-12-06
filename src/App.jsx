@@ -46,6 +46,12 @@ function App() {
     ))
   }
 
+  const editTask = (index, newText) => {
+    setTasks(tasks.map((task, i) => 
+      i === index ? { ...task, text: newText } : task
+    ))
+  }
+
   const clearCompleted = () => {
   // Get all completed tasks and animate them out
   const allTaskElements = document.querySelectorAll('li')
@@ -108,15 +114,19 @@ function App() {
        </button>)}
       </div>      
       <ul>
-        {filteredTasks.map((task, index) => (
+        {filteredTasks.map((task) => {
+          const realIndex = tasks.findIndex(t => t === task)
+          return (
           <TaskItem
-            key={index}
+            key={realIndex}
             task={task}
-            index={index}
+            index={realIndex}
             toogleComplete={toggleComplete}
             deleteTask={deleteTask}
+            editTask={editTask}
           />
-        ))}
+        )
+        })}
       </ul>
     </div>
   )
