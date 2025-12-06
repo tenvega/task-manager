@@ -30,7 +30,7 @@ function TaskItem({task, index, toogleComplete, deleteTask, editTask}) {
     }
 
   return (
-   <li>
+   <li data-task-index={index}>
     <input 
     type="checkbox" 
     checked={task.completed}

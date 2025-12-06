@@ -24,10 +24,17 @@ function App() {
   }    
 
   const deleteTask = (indexToDelete) => {
-  // Add fade-out class
-  const taskElement = document.querySelectorAll('li')[indexToDelete]
+  // Find the DOM element with the matching data attribute
+  const taskElement = document.querySelector(`li[data-task-index="${indexToDelete}"]`)
+
   if (taskElement) {
+    // Reset animation first
+    taskElement.style.animation = 'none'
+    // Force reflow to restart animation
+    taskElement.offsetHeight
+    // Apply fadeOut animation
     taskElement.style.animation = 'fadeOut 0.3s ease-out'
+
     // Wait for animation to finish before removing
     setTimeout(() => {
       setTasks(tasks.filter((task, index) => index !== indexToDelete))
@@ -36,6 +43,7 @@ function App() {
     setTasks(tasks.filter((task, index) => index !== indexToDelete))
   }
 }
+
 
 
   const toggleComplete = (indexToToggle) => {
